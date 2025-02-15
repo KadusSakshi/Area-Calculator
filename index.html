@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        select, input, button {
+            margin: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Area Calculator</h2>
+        <label for="shape">Choose a shape:</label>
+        <select id="shape" onchange="toggleInputs()">
+            <option value="rectangle">Rectangle</option>
+            <option value="circle">Circle</option>
+        </select>
+        
+        <div id="rectangle-inputs">
+            <input type="number" id="length" placeholder="Enter Length">
+            <input type="number" id="width" placeholder="Enter Width">
+        </div>
+        
+        <div id="circle-inputs" style="display: none;">
+            <input type="number" id="radius" placeholder="Enter Radius">
+        </div>
+        
+        <button onclick="calculateArea()">Calculate</button>
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function toggleInputs() {
+            let shape = document.getElementById('shape').value;
+            document.getElementById('rectangle-inputs').style.display = shape === 'rectangle' ? 'block' : 'none';
+            document.getElementById('circle-inputs').style.display = shape === 'circle' ? 'block' : 'none';
+        }
+
+        function calculateArea() {
+            let shape = document.getElementById('shape').value;
+            let result = 0;
+            if (shape === 'rectangle') {
+                let length = parseFloat(document.getElementById('length').value);
+                let width = parseFloat(document.getElementById('width').value);
+                if (!isNaN(length) && !isNaN(width)) {
+                    result = length * width;
+                }
+            } else if (shape === 'circle') {
+                let radius = parseFloat(document.getElementById('radius').value);
+                if (!isNaN(radius)) {
+                    result = Math.PI * radius * radius;
+                }
+            }
+            document.getElementById('result').innerText = `Area: ${result.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
